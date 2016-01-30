@@ -1,0 +1,16 @@
+parameters:
+    jmd.settings.class:         JMD\SettingsBundle\Service\Settings
+    jmd_settings.twig.class:    JMD\SettingsBundle\Twig\Extension\Settings
+
+services:
+    jmd.settings:
+        class: "%jmd.settings.class%"
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "%jmd_settings.entity%"
+
+    jmd_settings.twig:
+        class: "%jmd_settings.twig.class%"
+        arguments: [ "@jmd.settings" ]
+        tags:
+            - { name: twig.extension }
